@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import Searcher from './components/Searcher';
 import Header from './components/Header';
+import Result from './components/Result';
 
 export default class App extends Component {
   state = {
-    term: ''
+    term: '',
+    imgs: []
   }
 
   requestAPI = () => {
+    const term = this.state.term;
+    const url = `https://pixabay.com/api/?key=12345181-8c32532a40c8bb63db126ce43&q=${term}&per_page=30`;
 
+    fetch(url)
+        .then(resp => resp.json())
+        .then(data => this.setState({ imgs: data.hits }))
   }
 
   dataSearch = term => {
@@ -22,11 +29,18 @@ export default class App extends Component {
   render() {
     return (
       <div className="app container">
-        <Header/>
+        <div className="jumbotron">
+          <Header/> 
+          <Searcher
+            dataSearch={ this.dataSearch }
+          />
+        </div>
 
-        <Searcher
-          dataSearch={ this.dataSearch }
-        />
+        <div className="row">
+          <Result
+            imgs={ this.state.imgs }
+          />
+        </div>
 
       </div>
     )
