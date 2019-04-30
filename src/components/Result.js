@@ -22,6 +22,8 @@ export default class Result extends Component {
                 <Nav
                     nextPage={ this.props.nextPage }
                     previousPage={ this.props.previousPage }
+                    page={ this.props.page }
+                    totalPages={ this.props.totalPages }
                 />
             </React.Fragment>
         )

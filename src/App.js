@@ -9,7 +9,8 @@ export default class App extends Component {
     term: '',
     imgs: [],
     page: '',
-    loading: false
+    loading: false,
+    totalPages: ''
   }
 
   requestAPI = async () => {
@@ -26,7 +27,8 @@ export default class App extends Component {
             setTimeout(() => {
               this.setState({ 
                 imgs: data.hits,
-                loading: false
+                loading: false,
+                totalPages: Math.ceil(data.totalHits/30)
               });
             }, 2000);
           })
@@ -59,6 +61,9 @@ export default class App extends Component {
 
   nextPage = () => {
     let page = this.state.page;
+
+    if(page === this.state.totalPages) return null;
+
     page++; 
 
     this.setState({
@@ -95,6 +100,8 @@ export default class App extends Component {
                 imgs={ this.state.imgs }
                 nextPage={ this.nextPage }
                 previousPage={ this.previousPage }
+                page={ this.state.page }
+                totalPages={ this.state.totalPages }
               />;
     }
 
