@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Img from './Img';
+import Nav from './Nav';
 
 export default class Result extends Component {
     
@@ -10,7 +11,7 @@ export default class Result extends Component {
 
         return(
             <React.Fragment>
-                <div className="col-s12 p-5 row">
+                <div id="result" className="col-s12 p-5 row">
                     {imgs.map(img => (
                         <Img
                             key={ img.id }
@@ -18,6 +19,10 @@ export default class Result extends Component {
                         />
                     ))}
                 </div>
+                <Nav
+                    nextPage={ this.props.nextPage }
+                    previousPage={ this.props.previousPage }
+                />
             </React.Fragment>
         )
     }
